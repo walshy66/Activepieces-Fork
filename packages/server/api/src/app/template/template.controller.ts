@@ -23,34 +23,40 @@ import { platformMustBeOwnedByCurrentUser } from '../ee/authentication/ee-author
 import { flagService } from '../flags/flag.service'
 import { migrateFlowVersionTemplateList } from '../flows/flow-version/migrations'
 import { system } from '../helper/system/system'
+import { AppSystemProp } from '../helper/system/system-props'
 import { platformService } from '../platform/platform.service'
 import { communityTemplates } from './community-templates.service'
 import { templateService } from './template.service'
 
 const edition = system.getEdition()
 
+const areOfficialTemplatesEnabled = (): boolean => system.getBoolean(AppSystemProp.SHOW_OFFICIAL_TEMPLATES) ?? true
+const areCommunityTemplatesEnabled = (): boolean => system.getBoolean(AppSystemProp.SHOW_COMMUNITY_TEMPLATES) ?? true
+
 export const templateController: FastifyPluginAsyncZod = async (app) => {
     app.get('/:id', GetParams, async (request) => {
         const template = await templateService(app.log).getOne({ id: request.params.id })
         if (!isNil(template)) {
+            if (template.type === TemplateType.OFFICIAL && !areOfficialTemplatesEnabled()) {
+                return throwTemplateNotFound(request.params.id)
+            }
             return template
         }
-        if (edition !== ApEdition.CLOUD) {
+        if (edition !== ApEdition.CLOUD && areCommunityTemplatesEnabled()) {
             return communityTemplates.getOrThrow(request.params.id)
         }
-        throw new ActivepiecesError({
-            code: ErrorCode.ENTITY_NOT_FOUND,
-            params: {
-                entityType: 'template',
-                entityId: request.params.id,
-                message: `Template ${request.params.id} not found`,
-            },
-        })
+        return throwTemplateNotFound(request.params.id)
     })
 
     app.get('/categories', GetCategoriesParams, async (request) => {
+        if (!areOfficialTemplatesEnabled()) {
+            return { value: [] }
+        }
         if (edition === ApEdition.CLOUD) {
             return flagService(request.log).getOne(ApFlagId.TEMPLATES_CATEGORIES)
+        }
+        if (!areCommunityTemplatesEnabled()) {
+            return { value: [] }
         }
         return communityTemplates.getCategories()
     })
@@ -231,6 +237,17 @@ const UpdateParams = {
     },
 }
 
+function throwTemplateNotFound(id: string): never {
+    throw new ActivepiecesError({
+        code: ErrorCode.ENTITY_NOT_FOUND,
+        params: {
+            entityType: 'template',
+            entityId: id,
+            message: `Template ${id} not found`,
+        },
+    })
+}
+
 function assertTemplateBelongsToPlatform({ templatePlatformId, principalPlatformId }: {
     templatePlatformId: string | null | undefined
     principalPlatformId: string
@@ -247,7 +264,7 @@ async function loadOfficialTemplatesOrReturnEmpty(
     log: FastifyBaseLogger,
     query: ListTemplatesRequestQuery,
 ): Promise<Template[]> {
-    if (!isNil(query.type) && query.type !== TemplateType.OFFICIAL) {
+    if (!areOfficialTemplatesEnabled() || (!isNil(query.type) && query.type !== TemplateType.OFFICIAL)) {
         return []
     }
     if (edition === ApEdition.CLOUD) {
@@ -257,6 +274,9 @@ async function loadOfficialTemplatesOrReturnEmpty(
             ...query,
         })
         return officialTemplatesFromCloud.data
+    }
+    if (!areCommunityTemplatesEnabled()) {
+        return []
     }
     const loadTemplatesFromCloud = await communityTemplates.list({ ...query, type: TemplateType.OFFICIAL })
     return loadTemplatesFromCloud.data

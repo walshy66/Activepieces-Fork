@@ -42,6 +42,8 @@ export const flagService = (log: FastifyBaseLogger) => ({
                 ApFlagId.PRIVATE_PIECES_ENABLED,
                 ApFlagId.FLOW_RUN_TIME_SECONDS,
                 ApFlagId.SHOW_COMMUNITY,
+                ApFlagId.SHOW_COMMUNITY_TEMPLATES,
+                ApFlagId.SHOW_OFFICIAL_TEMPLATES,
                 ApFlagId.SUPPORTED_APP_WEBHOOKS,
                 ApFlagId.TELEMETRY_ENABLED,
                 ApFlagId.TEMPLATES_PROJECT_ID,
@@ -183,6 +185,18 @@ export const flagService = (log: FastifyBaseLogger) => ({
             {
                 id: ApFlagId.SHOW_COMMUNITY,
                 value: system.getEdition() !== ApEdition.ENTERPRISE,
+                created,
+                updated,
+            },
+            {
+                id: ApFlagId.SHOW_COMMUNITY_TEMPLATES,
+                value: system.getBoolean(AppSystemProp.SHOW_COMMUNITY_TEMPLATES) ?? true,
+                created,
+                updated,
+            },
+            {
+                id: ApFlagId.SHOW_OFFICIAL_TEMPLATES,
+                value: system.getBoolean(AppSystemProp.SHOW_OFFICIAL_TEMPLATES) ?? true,
                 created,
                 updated,
             },

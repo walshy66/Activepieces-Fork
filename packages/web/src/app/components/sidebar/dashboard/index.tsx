@@ -1,4 +1,5 @@
 import {
+  ApFlagId,
   isNil,
   PROJECT_COLOR_PALETTE,
   PlatformRole,
@@ -44,6 +45,7 @@ import {
 } from '@/features/projects';
 import { templatesTelemetryApi } from '@/features/templates';
 import { useIsPlatformAdmin } from '@/hooks/authorization-hooks';
+import { flagsHooks } from '@/hooks/flags-hooks';
 import { platformHooks } from '@/hooks/platform-hooks';
 import { userHooks } from '@/hooks/user-hooks';
 import { cn } from '@/lib/utils';
@@ -63,6 +65,12 @@ export function ProjectDashboardSidebar({
 }: { className?: string } = {}) {
   const { data: projects } = projectCollectionUtils.useAll();
   const { embedState } = useEmbedding();
+  const { data: showCommunityTemplates = true } = flagsHooks.useFlag<boolean>(
+    ApFlagId.SHOW_COMMUNITY_TEMPLATES,
+  );
+  const { data: showOfficialTemplates = true } = flagsHooks.useFlag<boolean>(
+    ApFlagId.SHOW_OFFICIAL_TEMPLATES,
+  );
   const { state } = useSidebar();
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
@@ -161,7 +169,11 @@ export function ProjectDashboardSidebar({
     type: 'link',
     to: '/templates',
     label: t('Explore'),
-    show: true,
+    show: Boolean(
+      platform.plan.manageTemplatesEnabled ||
+        showOfficialTemplates ||
+        showCommunityTemplates,
+    ),
     icon: CompassIcon,
     hasPermission: true,
     isSubItem: false,
