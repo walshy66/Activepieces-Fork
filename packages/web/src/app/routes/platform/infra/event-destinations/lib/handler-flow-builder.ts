@@ -26,7 +26,7 @@ export const handlerFlowBuilder = {
   buildHandlerFlowTemplate: ({ events, labels }: BuildParams): Template => {
     if (events.length === 0) {
       throw new Error(
-        'At least one event is required to build a handler flow.',
+        'At least one event is required to build a handler flow.'
       );
     }
 
@@ -52,7 +52,7 @@ export const handlerFlowBuilder = {
       tags: [],
       blogUrl: null,
       metadata: null,
-      author: 'Activepieces',
+      author: 'STS',
       categories: [],
       pieces: [WEBHOOK_PIECE_NAME],
       platformId: null,
@@ -96,7 +96,7 @@ export const handlerFlowBuilder = {
 
 function buildTopRouter(
   events: LabeledEvent[],
-  labels: HandlerFlowLabels,
+  labels: HandlerFlowLabels
 ): RouterAction {
   const lastUpdatedDate = new Date().toISOString();
   const branches: RouterBranches = events.map(({ name, label }) => ({

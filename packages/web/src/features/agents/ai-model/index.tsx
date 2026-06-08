@@ -38,14 +38,15 @@ type AIModelSelectorProps = {
   onChange: (value: { provider?: string; model?: string }) => void;
 };
 
-const ACTIVEPIECES_PROVIDER_CONFIG = {
+const BUILTIN_PROVIDER_CONFIG = {
   provider: AIProviderName.ACTIVEPIECES,
-  name: 'Activepieces',
+  name: 'Built-in',
   markdown: '',
-  logoUrl: 'https://cdn.activepieces.com/pieces/activepieces.png',
+  logoUrl:
+    'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20role%3D%22img%22%20aria-label%3D%22Built-in%20AI%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%236e41e2%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2239%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22700%22%20fill%3D%22%23ffffff%22%3EAI%3C%2Ftext%3E%3C%2Fsvg%3E',
 };
 
-const ALL_PROVIDERS = [...SUPPORTED_AI_PROVIDERS, ACTIVEPIECES_PROVIDER_CONFIG];
+const ALL_PROVIDERS = [...SUPPORTED_AI_PROVIDERS, BUILTIN_PROVIDER_CONFIG];
 
 export function AIModelSelector({
   defaultProvider,
@@ -59,7 +60,7 @@ export function AIModelSelector({
     AIProviderName | undefined
   >(defaultProvider);
   const [selectedModel, setSelectedModel] = React.useState<string | undefined>(
-    defaultModel,
+    defaultModel
   );
 
   const { data: providers = [], isLoading: providersLoading } =
@@ -77,12 +78,12 @@ export function AIModelSelector({
         providers.find((p) => p.provider === providerName)?.name ?? providerName
       );
     },
-    [providers],
+    [providers]
   );
 
-  const activepiecesProvider = React.useMemo(
+  const builtinProvider = React.useMemo(
     () => providers.find((p) => p.provider === AIProviderName.ACTIVEPIECES),
-    [providers],
+    [providers]
   );
 
   const sortedProviders = React.useMemo(() => {
@@ -95,13 +96,12 @@ export function AIModelSelector({
 
   React.useEffect(() => {
     if (!selectedProvider && !providersLoading && providers.length > 0) {
-      const preferred =
-        activepiecesProvider?.provider || providers[0]?.provider;
+      const preferred = builtinProvider?.provider || providers[0]?.provider;
       if (preferred) {
         setSelectedProvider(preferred as AIProviderName);
       }
     }
-  }, [providers, providersLoading, selectedProvider, activepiecesProvider]);
+  }, [providers, providersLoading, selectedProvider, builtinProvider]);
 
   React.useEffect(() => {
     if (
@@ -215,7 +215,7 @@ export function AIModelSelector({
                         'ml-auto h-4 w-4',
                         selectedProvider === provider.provider
                           ? 'opacity-100'
-                          : 'opacity-0',
+                          : 'opacity-0'
                       )}
                     />
                   </CommandItem>
@@ -282,9 +282,7 @@ export function AIModelSelector({
                     <Check
                       className={cn(
                         'ml-auto h-4 w-4',
-                        selectedModel === model.id
-                          ? 'opacity-100'
-                          : 'opacity-0',
+                        selectedModel === model.id ? 'opacity-100' : 'opacity-0'
                       )}
                     />
                   </CommandItem>

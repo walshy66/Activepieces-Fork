@@ -88,14 +88,14 @@ const SamlWizard = ({
     platform.ssoDomainVerification?.status ===
     SsoDomainVerificationStatus.VERIFIED;
   const [step, setStep] = useState<WizardStep>(
-    connected || !domainVerified ? 'domain' : 'saml',
+    connected || !domainVerified ? 'domain' : 'saml'
   );
 
   const { mutate: disableSaml, isPending: isDisabling } = useMutation({
     mutationFn: async () => {
       await platformApi.update(
         { federatedAuthProviders: { saml: null } },
-        platform.id,
+        platform.id
       );
       await refetch();
     },
@@ -143,7 +143,7 @@ const StepIndicator = ({ step }: { step: WizardStep }) => (
     <div
       className={cn(
         'flex items-center gap-2',
-        step === 'domain' && 'text-foreground font-medium',
+        step === 'domain' && 'text-foreground font-medium'
       )}
     >
       <span
@@ -151,7 +151,7 @@ const StepIndicator = ({ step }: { step: WizardStep }) => (
           'flex size-5 items-center justify-center rounded-full border text-xs',
           step === 'domain'
             ? 'border-primary bg-primary text-primary-foreground'
-            : 'border-muted-foreground/40',
+            : 'border-muted-foreground/40'
         )}
       >
         1
@@ -162,7 +162,7 @@ const StepIndicator = ({ step }: { step: WizardStep }) => (
     <div
       className={cn(
         'flex items-center gap-2',
-        step === 'saml' && 'text-foreground font-medium',
+        step === 'saml' && 'text-foreground font-medium'
       )}
     >
       <span
@@ -170,7 +170,7 @@ const StepIndicator = ({ step }: { step: WizardStep }) => (
           'flex size-5 items-center justify-center rounded-full border text-xs',
           step === 'saml'
             ? 'border-primary bg-primary text-primary-foreground'
-            : 'border-muted-foreground/40',
+            : 'border-muted-foreground/40'
         )}
       >
         2
@@ -239,13 +239,13 @@ const DomainStep = ({
         onVerified();
       } else {
         toast.message(
-          t('TXT record not found yet — DNS can take a few minutes.'),
+          t('TXT record not found yet — DNS can take a few minutes.')
         );
       }
     },
     onError: (error) => {
       toast.error(
-        extractServerErrorMessage(error, t("Couldn't verify domain")),
+        extractServerErrorMessage(error, t("Couldn't verify domain"))
       );
     },
   });
@@ -277,7 +277,7 @@ const DomainStep = ({
               />
               <FormDescription>
                 {t(
-                  'When a user enters this domain on the sign-in page, they will be redirected to your SAML identity provider.',
+                  'When a user enters this domain on the sign-in page, they will be redirected to your SAML identity provider.'
                 )}
               </FormDescription>
               <FormMessage />
@@ -335,7 +335,7 @@ const DomainStep = ({
             <TriangleAlert className="size-4" />
             <AlertDescription>
               {t(
-                "Users won't be able to sign in via SSO until you verify the new domain.",
+                "Users won't be able to sign in via SSO until you verify the new domain."
               )}
             </AlertDescription>
           </Alert>
@@ -382,7 +382,7 @@ const SamlStep = ({
   });
 
   const { data: samlAcs } = flagsHooks.useFlag<string>(
-    ApFlagId.SAML_AUTH_ACS_URL,
+    ApFlagId.SAML_AUTH_ACS_URL
   );
 
   const { mutate, isPending } = useMutation({
@@ -404,7 +404,7 @@ const SamlStep = ({
             markdown={t(
               `
 **Setup Instructions**:
-Please check the following documentation: [SAML SSO](https://activepieces.com/docs/security/sso)
+Please check the following documentation: [SAML SSO](https://docs.sts.local/security/sso)
 
 **Single sign-on URL**:
 \`\`\`text
@@ -412,10 +412,10 @@ Please check the following documentation: [SAML SSO](https://activepieces.com/do
 \`\`\`
 **Audience URI (SP Entity ID)**:
 \`\`\`text
-Activepieces
+STS
 \`\`\`
 `,
-              { samlAcs: samlAcs ?? '' },
+              { samlAcs: samlAcs ?? '' }
             )}
           />
         </div>
@@ -442,7 +442,7 @@ Activepieces
                 />
                 <FormDescription>
                   {t(
-                    'Paste the metadata XML contents or the metadata URL provided by your identity provider.',
+                    'Paste the metadata XML contents or the metadata URL provided by your identity provider.'
                   )}
                 </FormDescription>
                 <FormMessage />
@@ -516,7 +516,7 @@ const DomainVerificationPanel = ({
         <>
           <p className="text-xs text-muted-foreground">
             {t(
-              "Add this TXT record at your DNS provider. We'll detect it once it propagates — this usually takes a few minutes.",
+              "Add this TXT record at your DNS provider. We'll detect it once it propagates — this usually takes a few minutes."
             )}
           </p>
           <VerificationRecordRow record={verification.record} />

@@ -1,4 +1,3 @@
-
 <h1 align="center">
   <a
     target="_blank"
@@ -13,7 +12,6 @@ src="https://github.com/activepieces/activepieces/assets/1812998/76c97441-c285-4
     
   </a>
 </h1>
-
 
 <p align="center">
 <a href="/LICENSE" target="_blank"><img src='https://img.shields.io/badge/license-MIT-green?style=for-the-badge' /></a>&nbsp;<img src='https://img.shields.io/github/commit-activity/w/activepieces/activepieces/main?style=for-the-badge' />&nbsp;<a href='https://discord.gg/2jUXBKDdP8'><img src='https://img.shields.io/discord/966798490984382485?style=for-the-badge' /></a>
@@ -51,6 +49,27 @@ src="https://github.com/activepieces/activepieces/assets/1812998/76c97441-c285-4
 All-in-one AI automation designed to be **extensible** through a **type-safe** pieces framework written in **TypeScript**.
 When you contribute pieces to Activepieces they become automatically available as MCP servers that you can use with LLMs through Claude Desktop, Cursor or Windsurf!
 
+## STS fork local setup
+
+This fork defaults to the STS white-label theme so the browser app loads without Activepieces branding.
+
+Quick start:
+
+1. Install dependencies from the repo root:
+   ```bash
+   bun install
+   ```
+2. Start the local stack:
+   ```bash
+   npm run start
+   ```
+3. Open the Vite URL printed in the terminal, then create a test workflow and save it.
+
+If you want to start services individually:
+
+- Backend: `cd packages/server/api && npm run serve`
+- Frontend: `cd packages/web && npm run serve`
+
 <br>
 <br>
 
@@ -64,7 +83,7 @@ When you contribute pieces to Activepieces they become automatically available a
 
 - **🛠️ Largest open source MCP toolkit**: All our pieces (280+) are available as MCP that you can use with LLMs on Claude Desktop, Cursor or Windsurf.
 
-- **🛠️  Pieces are written in Typescript**: Pieces are npm packages in TypeScript, offering full customization with the best developer experience, including **hot reloading** for **local** piece development on your machine. 😎
+- **🛠️ Pieces are written in Typescript**: Pieces are npm packages in TypeScript, offering full customization with the best developer experience, including **hot reloading** for **local** piece development on your machine. 😎
 
 <img src="/docs/resources/create-action.png" alt="">
 
@@ -78,9 +97,7 @@ When you contribute pieces to Activepieces they become automatically available a
 
 - **💻 Human Input Interfaces**: Built-in support for human input triggers like "Chat Interface" 💬 and "Form Interface" 📝
 
-
-
-## 🛠️  Builder Features:
+## 🛠️ Builder Features:
 
 - [x] Loops
 - [x] Branches
@@ -91,10 +108,9 @@ When you contribute pieces to Activepieces they become automatically available a
 - [x] Flows are fully versioned.
 - [x] Languages Translations
 - [x] Customizable Templates
-- [X] 200+ Pieces, check https://www.activepieces.com/pieces
+- [x] 200+ Pieces, check https://www.activepieces.com/pieces
 
 **We release updates frequently. Check the product changelog for the latest features.**
-
 
 ## 🔌 Create Your Own Piece
 
@@ -109,16 +125,13 @@ You can easily create your own integration using our TypeScript framework. For d
 <br>
 <br>
 
-
 # License
 
 Activepieces' Community Edition is released as open source under the [MIT license](https://github.com/activepieces/activepieces/blob/main/LICENSE) and enterprise features are released under [Commercial License](https://github.com/activepieces/activepieces/blob/main/packages/ee/LICENSE)
 
-
 Read more about the feature comparison here https://www.activepieces.com/pricing
 <br>
 <br>
-
 
 # 💭 Join Our Community
 
@@ -137,17 +150,15 @@ We welcome contributions big or small and in different directions. The best way 
 
 Not into coding but still interested in contributing? Come join our [Discord](https://discord.gg/2jUXBKDdP8) and visit https://www.activepieces.com/docs/about/i18n for more information.
 
-![fr translation](https://img.shields.io/badge/dynamic/json?color=blue&label=fr&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27fr%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json)
+![fr translation](<https://img.shields.io/badge/dynamic/json?color=blue&label=fr&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27fr%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json>)
 
-![it translation](https://img.shields.io/badge/dynamic/json?color=blue&label=it&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27it%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json)
+![it translation](<https://img.shields.io/badge/dynamic/json?color=blue&label=it&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27it%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json>)
 
-![de translation](https://img.shields.io/badge/dynamic/json?color=blue&label=de&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27de%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json)
+![de translation](<https://img.shields.io/badge/dynamic/json?color=blue&label=de&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27de%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json>)
 
-![ja translation](https://img.shields.io/badge/dynamic/json?color=blue&label=ja&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27ja%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json)
+![ja translation](<https://img.shields.io/badge/dynamic/json?color=blue&label=ja&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27ja%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json>)
 
-
-![pt-BR translation](https://img.shields.io/badge/dynamic/json?color=blue&label=pt-BR&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27pt-BR%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json)
-
+![pt-BR translation](<https://img.shields.io/badge/dynamic/json?color=blue&label=pt-BR&style=for-the-badge&logo=crowdin&query=%24.progress[?(@.data.languageId==%27pt-BR%27)].data.translationProgress&url=https%3A%2F%2Fbadges.awesome-crowdin.com%2Fstats-16093902-626364-update.json>)
 
 ## 🦫 Contributors
 

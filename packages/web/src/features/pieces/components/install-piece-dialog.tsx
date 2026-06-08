@@ -68,7 +68,7 @@ const InstallPieceDialog = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: privatePiecesEnabled } = flagsHooks.useFlag<boolean>(
-    ApFlagId.PRIVATE_PIECES_ENABLED,
+    ApFlagId.PRIVATE_PIECES_ENABLED
   );
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -88,7 +88,7 @@ const InstallPieceDialog = ({
 
         // Look for package.json content in the decompressed data
         const packageJsonMatch = text.match(
-          /package\.json.*?{[^}]*"name"\s*:\s*"([^"]+)".*?"version"\s*:\s*"([^"]+)"/s,
+          /package\.json.*?{[^}]*"name"\s*:\s*"([^"]+)".*?"version"\s*:\s*"([^"]+)"/s
         );
         if (packageJsonMatch) {
           form.setValue('pieceName', packageJsonMatch[1]);
@@ -147,7 +147,7 @@ const InstallPieceDialog = ({
           case HttpStatusCode.Conflict:
             form.setError('root.serverError', {
               message: t(
-                'A piece with this name and version is already installed. Please update the version number in package.json and try again.',
+                'A piece with this name and version is already installed. Please update the version number in package.json and try again.'
               ),
             });
             break;
@@ -174,7 +174,7 @@ const InstallPieceDialog = ({
           <DialogDescription>
             <ApMarkdown
               markdown={
-                'Use this to install a [custom piece]("https://www.activepieces.com/docs/build-pieces/building-pieces/create-action") that you (or someone else) created. Once the piece is installed, you can use it in the flow builder.\n\nWarning: Make sure you trust the author as the piece will have access to your flow data and it might not be compatible with the current version of Activepieces.'
+                'Use this to install a custom piece that you (or someone else) created. Once the piece is installed, you can use it in the flow builder.\n\nWarning: Make sure you trust the author as the piece will have access to your flow data and it might not be compatible with the current version of the app.'
               }
             />
           </DialogDescription>
@@ -186,7 +186,7 @@ const InstallPieceDialog = ({
               mutate({
                 projectId: authenticationSession.getProjectId()!,
                 ...data,
-              } as AddPieceRequestBody),
+              } as AddPieceRequestBody)
             )}
           >
             <FormField

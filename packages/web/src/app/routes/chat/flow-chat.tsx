@@ -67,7 +67,7 @@ export function FlowChat({
         mode === ChatDrawerSource.TEST_FLOW ||
           mode === ChatDrawerSource.TEST_STEP
           ? true
-          : false,
+          : false
       ),
     enabled: !isNil(flowId),
     staleTime: Infinity,
@@ -97,7 +97,7 @@ export function FlowChat({
   const [imageDialogOpen, setImageDialogOpen] = useState(false);
 
   const botName =
-    chatUI?.props.botName ?? `${chatUI?.platformName ?? 'Activepieces'} Bot`;
+    chatUI?.props.botName ?? `${chatUI?.platformName ?? 'STS'} Bot`;
 
   const { mutate: sendMessage, isPending: isSending } = useMutation({
     mutationFn: async ({
@@ -178,7 +178,7 @@ export function FlowChat({
 
           case HumanInputFormResultTypes.MARKDOWN: {
             const validFiles = (result.files ?? []).filter(
-              (file) => 'url' in file && 'mimeType' in file,
+              (file) => 'url' in file && 'mimeType' in file
             );
 
             onAddMessage({
@@ -231,7 +231,7 @@ export function FlowChat({
       className={cn(
         'flex w-full flex-col items-center justify-center pb-6',
         messages.length > 0 ? 'h-screen' : 'h-screen',
-        className,
+        className
       )}
     >
       {messages.length > 0 ? (

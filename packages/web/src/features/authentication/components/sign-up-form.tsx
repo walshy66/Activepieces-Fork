@@ -61,22 +61,14 @@ const SignUpForm = ({
       email: searchParams.get('email') || '',
     },
   });
-  const websiteName = flagsHooks.useWebsiteBranding()?.websiteName;
   const { data: edition } = flagsHooks.useFlag<ApEdition>(ApFlagId.EDITION);
   const showNewsLetterCheckbox = useMemo(() => {
-    if (!edition || !websiteName) {
+    if (!edition) {
       return false;
     }
     switch (edition) {
       case ApEdition.CLOUD: {
-        if (
-          typeof websiteName === 'string' &&
-          websiteName.toLowerCase() === 'activepieces'
-        ) {
-          form.setValue('newsLetter', true);
-          return true;
-        }
-        return false;
+        return true;
       }
       case ApEdition.ENTERPRISE:
         return false;
@@ -85,7 +77,7 @@ const SignUpForm = ({
         return true;
       }
     }
-  }, [edition, websiteName]);
+  }, [edition]);
 
   const redirectAfterLogin = useRedirectAfterLogin();
   const navigate = useNavigate();
@@ -123,7 +115,7 @@ const SignUpForm = ({
           case ErrorCode.INVITATION_ONLY_SIGN_UP: {
             form.setError('root.serverError', {
               message: t(
-                'Sign up is restricted. You need an invitation to join. Please contact the administrator.',
+                'Sign up is restricted. You need an invitation to join. Please contact the administrator.'
               ),
             });
             break;
